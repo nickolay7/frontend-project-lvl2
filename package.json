@@ -34,6 +34,7 @@
     "gendiff": "bin/gendiff.js"
   },
   "dependencies": {
-    "commander": "^6.2.1"
+    "commander": "^6.2.1",
+    "lodash": "^4.17.20"
   }
 }

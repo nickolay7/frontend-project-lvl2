@@ -1,6 +1,6 @@
 {
   "name": "@hexlet/code",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "![Actions Status](/workflows/hexlet-check/badge.svg)",
   "main": "index.js",
   "scripts": {

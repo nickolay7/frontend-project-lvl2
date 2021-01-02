@@ -1,6 +1,6 @@
 #!/bin/env node
 
-import { program } from 'commander';
+import program from 'commander';
 import jsonDiff from '../jsonDiff.js';
 
 program.description('Compares two configuration files and shows a difference.')

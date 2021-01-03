@@ -2,10 +2,7 @@ import _ from 'lodash';
 import fs from 'fs';
 // import path from 'path';
 
-const readFile = (path) => {
-  // const fullPath = path.resolve(path, process.cwd());
-  return JSON.parse(fs.readFileSync(path, 'utf-8'));
-}
+const readFile = (path) => JSON.parse(fs.readFileSync(path, 'utf-8'));
 
 export default (filepath1, filepath2) => {
   const obj1 = readFile(filepath1);
@@ -24,11 +21,13 @@ export default (filepath1, filepath2) => {
       return `    ${key}: ${obj2[key]}`;
     }
     return `  - ${key}: ${obj1[key]}\n  + ${key}: ${obj2[key]}`;
-  }).sort(function(a, b) {
+  }).sort((a, b) => {
     if (a[3] > b[3]) {
-      return 1; }
+      return 1;
+    }
     if (a[3] < b[3]) {
-      return -1; }
+      return -1;
+    }
     return 0;
   }).join('\n')}\n}`;
   console.log(res);

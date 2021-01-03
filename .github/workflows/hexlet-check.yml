@@ -8,8 +8,9 @@ jobs:
 
       - name: Hexlet project check
         uses: hexlet/project-action@release
-      -run: |
-        make lint
-        make test
+      - name: lint
+        run: make lint
+      - name: test
+        run: make test
       env:
         CI: true

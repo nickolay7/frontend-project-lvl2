@@ -10,7 +10,5 @@ jobs:
         uses: hexlet/project-action@release
       - name: lint
         run: npx eslint .
-      - name: test
-        run: npm test
       env:
         CI: true

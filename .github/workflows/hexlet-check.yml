@@ -9,8 +9,8 @@ jobs:
       - name: Hexlet project check
         uses: hexlet/project-action@release
       - name: lint
-        run: make lint
+        run: npx eslint .
       - name: test
-        run: make test
+        run: npm test
       env:
         CI: true

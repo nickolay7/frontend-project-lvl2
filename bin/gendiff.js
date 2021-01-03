@@ -1,4 +1,4 @@
-#!/usr/local/bin/node
+#!/usr/bin/env node
 
 import program from 'commander';
 import jsonDiff from '../jsonDiff.js';

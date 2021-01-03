@@ -19,7 +19,6 @@ jobs:
           env:
             CI: true
       - name: Run linter
-          run: |
-            make lint
+        run: make lint
       - name: Hexlet project check
         uses: hexlet/project-action@release

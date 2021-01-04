@@ -22,13 +22,13 @@ export default (filepath1, filepath2) => {
     }
     return `  - ${key}: ${obj1[key]}\n  + ${key}: ${obj2[key]}`;
   }).sort((a, b) => {
-    if (a[3] > b[3]) {
+    if (a[4] > b[4]) {
       return 1;
     }
-    if (a[3] < b[3]) {
+    if (a[4] < b[4]) {
       return -1;
     }
     return 0;
   }).join('\n')}\n}`;
-  console.log(res);
+  return res;
 };

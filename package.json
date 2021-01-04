@@ -2,7 +2,7 @@
   "name": "@hexlet/code",
   "version": "0.0.1",
   "description": "![Actions Status](/workflows/hexlet-check/badge.svg)",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "npx jest"
   },
@@ -31,7 +31,7 @@
     "jest-cli": "^26.6.3"
   },
   "bin": {
-    "gendiff": "bin/gendiff.js"
+    "gendiff": "src/bin/gendiff.js"
   },
   "dependencies": {
     "commander": "^6.2.1",

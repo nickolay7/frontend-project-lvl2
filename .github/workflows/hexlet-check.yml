@@ -44,12 +44,12 @@ jobs:
         # https://github.com/paambaati/codeclimate-action
         uses: hexlet/project-action@release
       - name: Test & publish code coverage
-          # Publish code coverage on Code Climate
-          # https://github.com/paambaati/codeclimate-action
-          uses: paambaati/codeclimate-action@v2.7.4
-          # Add Code Climate secret key
-          env:
-            CC_TEST_REPORTER_ID: ${{ secrets.MY_TC_TOKEN }}
-          with:
-            coverageCommand: make test-coverage
-            debug: true
+        # Publish code coverage on Code Climate
+        # https://github.com/paambaati/codeclimate-action
+        uses: paambaati/codeclimate-action@v2.7.4
+        # Add Code Climate secret key
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.MY_TC_TOKEN }}
+        with:
+          coverageCommand: make test-coverage
+          debug: true

@@ -43,6 +43,8 @@ jobs:
         # Publish code coverage on Code Climate
         # https://github.com/paambaati/codeclimate-action
         uses: hexlet/project-action@release
+        with:
+          hexlet-id: ${{ secrets.HEXLET_ID }}
       - name: Test & publish code coverage
         # Publish code coverage on Code Climate
         # https://github.com/paambaati/codeclimate-action

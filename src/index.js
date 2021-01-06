@@ -1,26 +1,23 @@
 import _ from 'lodash';
-import fs from 'fs';
-// import path from 'path';
-
-const readFile = (path) => JSON.parse(fs.readFileSync(path, 'utf-8'));
+import readFile from './parsers.js';
 
 export default (filepath1, filepath2) => {
-  const obj1 = readFile(filepath1);
-  const obj2 = readFile(filepath2);
-  const keys1 = Object.keys(obj1);
-  const keys2 = Object.keys(obj2);
+  const data1 = readFile(filepath1);
+  const data2 = readFile(filepath2);
+  const keys1 = Object.keys(data1);
+  const keys2 = Object.keys(data2);
   const allKeys = _.union(keys1, keys2);
-  const res = `{\n${allKeys.map((key) => {
-    if (!(_.has(obj1, key)) && (_.has(obj2, key))) {
-      return `  + ${key}: ${obj2[key]}`;
+  return `{\n${allKeys.map((key) => {
+    if (!(_.has(data1, key)) && (_.has(data2, key))) {
+      return `  + ${key}: ${data2[key]}`;
     }
-    if ((_.has(obj1, key)) && !(_.has(obj2, key))) {
-      return `  - ${key}: ${obj1[key]}`;
+    if ((_.has(data1, key)) && !(_.has(data2, key))) {
+      return `  - ${key}: ${data1[key]}`;
     }
-    if (obj1[key] === obj2[key]) {
-      return `    ${key}: ${obj2[key]}`;
+    if (data1[key] === data2[key]) {
+      return `    ${key}: ${data2[key]}`;
     }
-    return `  - ${key}: ${obj1[key]}\n  + ${key}: ${obj2[key]}`;
+    return `  - ${key}: ${data1[key]}\n  + ${key}: ${data2[key]}`;
   }).sort((a, b) => {
     if (a[4] > b[4]) {
       return 1;
@@ -30,5 +27,4 @@ export default (filepath1, filepath2) => {
     }
     return 0;
   }).join('\n')}\n}`;
-  return res;
 };

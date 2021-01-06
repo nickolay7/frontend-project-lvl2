@@ -18,3 +18,17 @@ test('genDiff.json', () => {
 }`;
   expect(genDiff(path1, path2)).toEqual(expected);
 });
+
+test('genDiff.yaml', () => {
+  const path1 = getFixturePath('file.yaml');
+  const path2 = getFixturePath('anotherFile.yaml');
+  const expected = `{
+  - follow: false
+    host: hexlet.io
+  - proxy: 123.234.53.22
+  - timeout: 50
+  + timeout: 20
+  + verbose: true
+}`;
+  expect(genDiff(path1, path2)).toEqual(expected);
+});

@@ -26,6 +26,6 @@ export default (filepath1, filepath2) => {
       return -1;
     }
     return 0;
-  }).join('\n')
+  }).join('\n');
   return `{\n${handler}\n}`;
 };

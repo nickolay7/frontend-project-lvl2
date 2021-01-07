@@ -9,6 +9,8 @@ export default (filepath) => {
     parse = JSON.parse;
   } else if (format === '.yaml') {
     parse = yaml.load;
+  } else if (format === '.txt') {
+    return fs.readFileSync(filepath, 'utf-8');
   }
   return parse(fs.readFileSync(filepath, 'utf-8'));
 };

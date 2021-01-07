@@ -7,7 +7,7 @@ export default (filepath1, filepath2) => {
   const keys1 = Object.keys(data1);
   const keys2 = Object.keys(data2);
   const allKeys = _.union(keys1, keys2);
-  return `{\n${allKeys.map((key) => {
+  const handler = allKeys.map((key) => {
     if (!(_.has(data1, key)) && (_.has(data2, key))) {
       return `  + ${key}: ${data2[key]}`;
     }
@@ -26,5 +26,6 @@ export default (filepath1, filepath2) => {
       return -1;
     }
     return 0;
-  }).join('\n')}\n}`;
+  }).join('\n')
+  return `{\n${handler}\n}`;
 };

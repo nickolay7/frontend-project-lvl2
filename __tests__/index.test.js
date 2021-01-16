@@ -45,6 +45,6 @@ test('genDiff.yaml nested', () => {
 test('genDiff.json plain', () => {
   const path1 = getFixturePath('nestedFile.json');
   const path2 = getFixturePath('anotherNestedFile.json');
-  const expected = expectedData.nested;
+  const expected = expectedData.plain;
   expect(plainFormatter(genDiff(path1, path2))).toEqual(expected);
 });

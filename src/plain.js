@@ -13,8 +13,6 @@ const plain = (data, path = '') => {
       }
       return `'${item}'`;
     };
-    // (
-    //   ? item : ( ?  : ));
     if (arr[index + 1] !== undefined && key === arr[index + 1].key) {
       return `Property '${path}${key}' was updated. From ${currentValue(value)} to ${currentValue(arr[index + 1].value)}`;
     }

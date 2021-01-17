@@ -34,3 +34,10 @@ test('genDiff.json plain', () => {
   const expected = expectedData.plain;
   expect(plainFormatter(genDiff(path1, path2))).toEqual(expected);
 });
+
+test('genDiff.yaml plain', () => {
+  const path1 = getFixturePath('nestedFile.yaml');
+  const path2 = getFixturePath('anotherNestedFile.yaml');
+  const expected = expectedData.plain;
+  expect(plainFormatter(genDiff(path1, path2))).toEqual(expected);
+});

@@ -14,20 +14,6 @@ beforeAll(() => {
   expectedData.nested = readFile(getFixturePath('nested.txt'));
 });
 
-// test('genDiff.json', () => {
-//   const path1 = getFixturePath('file.json');
-//   const path2 = getFixturePath('anotherFile.json');
-//   const expected = expectedData.plain;
-//   expect(formatter(genDiff(path1, path2))).toEqual(expected);
-// });
-
-// test('genDiff.yaml', () => {
-//   const path1 = getFixturePath('file.yaml');
-//   const path2 = getFixturePath('anotherFile.yaml');
-//   const expected = expectedData.plain;
-//   expect(formatter(genDiff(path1, path2))).toEqual(expected);
-// });
-
 test('genDiff.json nested', () => {
   const path1 = getFixturePath('nestedFile.json');
   const path2 = getFixturePath('anotherNestedFile.json');

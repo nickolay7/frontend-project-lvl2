@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import readFile from './parsers.js';
-import format from './formatters/index.js'
+import format from './formatters/index.js';
 
 export default (filepath1, filepath2, formatName) => {
   const getDiffFiles = (f1, f2) => {

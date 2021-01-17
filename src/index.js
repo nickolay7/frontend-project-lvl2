@@ -1,7 +1,8 @@
 import _ from 'lodash';
 import readFile from './parsers.js';
+import format from 'formatters/index.js'
 
-export default (filepath1, filepath2) => {
+export default (filepath1, filepath2, formatName) => {
   const getDiffFiles = (f1, f2) => {
     const allKeys = _.union(Object.keys(f1), Object.keys(f2));
     const checkValue = (el) => typeof el === 'object' && !Array.isArray(el);
@@ -29,5 +30,6 @@ export default (filepath1, filepath2) => {
       return 0;
     });
   };
-  return getDiffFiles(readFile(filepath1), readFile(filepath2));
+  const diff = getDiffFiles(readFile(filepath1), readFile(filepath2));
+  return format(diff, formatName);
 };

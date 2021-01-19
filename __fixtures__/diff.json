@@ -15,9 +15,7 @@
   },
   "group1": {
     "baz": "bars",
-    "nest": {
-      "key": "str"
-    }
+    "nest": "str"
   },
   "group3": {
     "fee": 100500,

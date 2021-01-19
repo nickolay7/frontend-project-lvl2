@@ -2,8 +2,7 @@ const plain = (data, path = '') => {
   if (typeof data !== 'object') {
     return null;
   }
-  const prepareData = Array.isArray(data) ? data : Object.keys(data);
-  return prepareData.map(({ sign, key, value }, index, arr) => {
+  return data.map(({ sign, key, value }, index, arr) => {
     const currentValue = (item) => {
       if (typeof item === 'boolean' || item === null) {
         return item;

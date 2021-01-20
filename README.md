@@ -1,6 +1,8 @@
 ### Hexlet tests and linter status:
 ![Actions Status](/workflows/hexlet-check/badge.svg)
 
+[![asciicast](https://asciinema.org/a/HTkxdXTjFz5NDnEv98UYJbnyf.svg)](https://asciinema.org/a/HTkxdXTjFz5NDnEv98UYJbnyf)
+
 [![asciicast](https://asciinema.org/a/BjZwoMpjTAwP3tMLuzLQ3haxS.svg)](https://asciinema.org/a/BjZwoMpjTAwP3tMLuzLQ3haxS)
 
 [![asciicast](https://asciinema.org/a/adaD3VIyvyz4a2zjup6UrODoS.svg)](https://asciinema.org/a/adaD3VIyvyz4a2zjup6UrODoS)

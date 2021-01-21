@@ -2,7 +2,7 @@ const plain = (data, path = '') => {
   if (typeof data !== 'object') {
     return null;
   }
-  return data.map(({ sign, key, value }, index, arr) => {
+  return data.map(({ type, key, value }, index, arr) => {
     const currentValue = (item) => {
       if (typeof item === 'boolean' || item === null) {
         return item;
@@ -18,10 +18,10 @@ const plain = (data, path = '') => {
     if (arr[index - 1] !== undefined && key === arr[index - 1].key) {
       return null;
     }
-    if (sign === '+') {
+    if (type === '+') {
       return `Property '${path}${key}' was added with value: ${currentValue(value)}`;
     }
-    if (sign === '-') {
+    if (type === '-') {
       return `Property '${path}${key}' was removed`;
     }
     return plain(value, `${path}${key}.`);

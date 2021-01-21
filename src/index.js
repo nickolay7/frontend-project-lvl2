@@ -8,18 +8,18 @@ export default (filepath1, filepath2, formatName) => {
     const checkValue = (el) => typeof el === 'object' && !Array.isArray(el);
     return allKeys.flatMap((key) => {
       if (!(_.has(f1, key)) && (_.has(f2, key))) {
-        return { sign: '+', key, value: f2[key] };
+        return { type: '+', key, value: f2[key] };
       }
       if ((_.has(f1, key)) && !(_.has(f2, key))) {
-        return { sign: '-', key, value: f1[key] };
+        return { type: '-', key, value: f1[key] };
       }
-      if ((_.has(f1, key)) && (_.has(f2, key)) && checkValue(f1[key]) && checkValue(f2[key])) {
-        return { sign: ' ', key, value: getDiffFiles(f1[key], f2[key]) };
+      if (checkValue(f1[key]) && checkValue(f2[key])) {
+        return { type: ' ', key, value: getDiffFiles(f1[key], f2[key]) };
       }
       if (f1[key] === f2[key]) {
-        return { sign: ' ', key, value: f2[key] };
+        return { type: ' ', key, value: f2[key] };
       }
-      return [{ sign: '-', key, value: f1[key] }, { sign: '+', key, value: f2[key] }];
+      return [{ type: '-', key, value: f1[key] }, { type: '+', key, value: f2[key] }];
     }).sort((a, b) => {
       if (a.key > b.key) {
         return 1;

@@ -8,9 +8,9 @@ const defaultFormatter = (data, replacer = ' ', spacesCount = 2) => {
     const bracketIndent = replacer.repeat(indentSize - spacesCount);
     const lines = !Array.isArray(node)
       ? Object.entries(node).map(([key, value]) => ` ${currentIndent} ${key}: ${iter(value, depth + spacesCount)}`)
-      : node.map(({ sign, key, value }) => (value === ''
-        ? `${currentIndent}${sign} ${key}:`
-        : `${currentIndent}${sign} ${key}: ${iter(value, depth + spacesCount)}`));
+      : node.map(({ type, key, value }) => (value === ''
+        ? `${currentIndent}${type} ${key}:`
+        : `${currentIndent}${type} ${key}: ${iter(value, depth + spacesCount)}`));
     return [
       '{',
       ...lines,

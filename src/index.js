@@ -2,10 +2,19 @@ import _ from 'lodash';
 import readFile from './parsers.js';
 import format from './formatters/index.js';
 
+const checkValue = (el) => typeof el === 'object' && !Array.isArray(el);
+const cond = (a, b) => {
+  if (a.key > b.key) {
+    return 1;
+  }
+  if (a.key < b.key) {
+    return -1;
+  }
+  return 0;
+};
 export default (filepath1, filepath2, formatName) => {
   const getDiffFiles = (f1, f2) => {
     const allKeys = _.union(Object.keys(f1), Object.keys(f2));
-    const checkValue = (el) => typeof el === 'object' && !Array.isArray(el);
     return allKeys.flatMap((key) => {
       if (!(_.has(f1, key)) && (_.has(f2, key))) {
         return { type: '+', key, value: f2[key] };
@@ -20,15 +29,7 @@ export default (filepath1, filepath2, formatName) => {
         return { type: ' ', key, value: f2[key] };
       }
       return [{ type: '-', key, value: f1[key] }, { type: '+', key, value: f2[key] }];
-    }).sort((a, b) => {
-      if (a.key > b.key) {
-        return 1;
-      }
-      if (a.key < b.key) {
-        return -1;
-      }
-      return 0;
-    });
+    }).sort(cond);
   };
   const diff = getDiffFiles(readFile(filepath1), readFile(filepath2));
   return format(diff, formatName);

@@ -4,9 +4,14 @@ const json = (data) => {
   }
   return !Array.isArray(data)
     ? Object.entries(data).reduce((acc, [key, value]) => ({ ...acc, [key]: json(value) }), {})
-    : data.reduce((acc, { type, key, value }) => {
-      if (type === '-' || (type === ' ' && typeof value !== 'object')) {
+    : data.reduce((acc, {
+      type, key, value, children,
+    }) => {
+      if (type === 'remove' || (type === 'unchanged' && typeof value !== 'object' && value !== undefined)) {
         return acc;
+      }
+      if (value === undefined) {
+        return { ...acc, [key]: json(children) };
       }
       return { ...acc, [key]: json(value) };
     }, {});

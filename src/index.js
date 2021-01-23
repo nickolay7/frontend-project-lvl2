@@ -32,7 +32,7 @@ export default (filepath1, filepath2, formatName) => {
       if (val1 === val2) {
         return { type: 'unchanged', key, value: val1 };
       }
-      return { type: 'update', key, value: val1 };
+      return [{ type: 'update', key, value: val1 }, { type: 'updated', key, value: val2 }];
     }).sort(cond);
   };
   const diff = getDiffFiles(readFile(filepath1), readFile(filepath2));

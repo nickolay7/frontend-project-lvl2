@@ -5,11 +5,13 @@ const codeType = {
   updated: '+',
   unchanged: ' ',
 };
-const defaultFormatter = (data, replacer = ' ', spacesCount = 2) => {
+const defaultFormatter = (data) => {
   const iter = (node, depth) => {
     if ((!Array.isArray(node) && typeof node !== 'object') || node === null) {
       return node;
     }
+    const replacer = ' ';
+    const spacesCount = 2;
     const indentSize = depth * spacesCount;
     const currentIndent = replacer.repeat(indentSize);
     const bracketIndent = replacer.repeat(indentSize - spacesCount);

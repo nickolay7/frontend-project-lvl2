@@ -1,5 +1,6 @@
 import _ from 'lodash';
-import readFile from './parsers.js';
+import fs from 'fs';
+import parse from './parsers.js';
 import format from './formatters/index.js';
 
 const isObject = (el) => typeof el === 'object' && !Array.isArray(el);
@@ -35,6 +36,8 @@ export default (filepath1, filepath2, formatName) => {
       return [{ type: 'update', key, value: val1 }, { type: 'updated', key, value: val2 }];
     }).sort(cond);
   };
-  const diff = getDiffFiles(readFile(filepath1), readFile(filepath2));
+  const file1 = fs.readFileSync(filepath1, 'utf-8');
+  const file2 = fs.readFileSync(filepath2, 'utf-8');
+  const diff = getDiffFiles(parse(filepath1, file1), parse(filepath2, file2));
   return format(diff, formatName);
 };

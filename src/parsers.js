@@ -7,7 +7,7 @@ export default (filepath, text) => {
   if (format === '' || format === '.json') {
     return JSON.parse(text);
   }
-  if (format === '.yaml') {
+  if (format === '.yaml' || format === '.yml') {
     return yaml.load(text);
   }
   if (format === '.ini') {

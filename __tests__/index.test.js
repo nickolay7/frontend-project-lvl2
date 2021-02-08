@@ -28,6 +28,13 @@ test('genDiff.yaml nested', () => {
   expect(genDiff(path1, path2, 'stylish')).toEqual(expected);
 });
 
+test('genDiff.ini nested', () => {
+  const path1 = getFixturePath('file.ini');
+  const path2 = getFixturePath('anotherFile.ini');
+  const expected = expectedData.nested;
+  expect(genDiff(path1, path2, 'stylish')).toEqual(expected);
+});
+
 test('genDiff.json plain', () => {
   const path1 = getFixturePath('nestedFile.json');
   const path2 = getFixturePath('anotherNestedFile.json');
@@ -42,16 +49,16 @@ test('genDiff.yaml plain', () => {
   expect(genDiff(path1, path2, 'plain')).toEqual(expected);
 });
 
+test('genDiff.ini plain', () => {
+  const path1 = getFixturePath('file.ini');
+  const path2 = getFixturePath('anotherFile.ini');
+  const expected = expectedData.plain;
+  expect(genDiff(path1, path2, 'plain')).toEqual(expected);
+});
+
 test('genDiff.json json', () => {
   const path1 = getFixturePath('nestedFile.json');
   const path2 = getFixturePath('anotherNestedFile.json');
   const expected = expectedData.json;
-  expect(genDiff(path1, path2, 'json')).toEqual(expected);
-});
-
-test('genDiff.ini nested', () => {
-  const path1 = getFixturePath('file.ini');
-  const path2 = getFixturePath('anotherFile.ini');
-  const expected = expectedData.nested;
   expect(genDiff(path1, path2, 'json')).toEqual(expected);
 });

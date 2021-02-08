@@ -1,13 +1,17 @@
 import yaml from 'js-yaml';
+import ini from 'ini';
 import path from 'path';
 
-export default (filepath, file) => {
+export default (filepath, text) => {
   const format = path.extname(filepath);
-  let parse;
   if (format === '' || format === '.json') {
-    parse = JSON.parse;
-  } else if (format === '.yaml') {
-    parse = yaml.load;
+    return JSON.parse(text);
   }
-  return parse(file);
+  if (format === '.yaml') {
+    return yaml.load(text);
+  }
+  if (format === '.ini') {
+    return ini.parse(text);
+  }
+  return new Error('unsupported file extension ! ! !');
 };

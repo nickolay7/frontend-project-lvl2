@@ -13,7 +13,7 @@ const cond = (a, b) => {
   }
   return 0;
 };
-export default (filepath1, filepath2, formatName) => {
+export default (filepath1, filepath2, formatName = 'stylish') => {
   const getDiffFiles = (data1, data2) => {
     const allKeys = _.union(Object.keys(data1), Object.keys(data2));
     return allKeys.flatMap((key) => {

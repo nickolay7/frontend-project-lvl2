@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url';
 import genDiff from '../src/index.js';
 import parse from '../src/parsers.js';
 
-const expectedData = { nested: '', plain: '', json: '' };
+const expectedData = { nested: '', plain: '', json: '', ini: '' };
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 
@@ -46,5 +46,12 @@ test('genDiff.json json', () => {
   const path1 = getFixturePath('nestedFile.json');
   const path2 = getFixturePath('anotherNestedFile.json');
   const expected = expectedData.json;
+  expect(genDiff(path1, path2, 'json')).toEqual(expected);
+});
+
+test('genDiff.ini nested', () => {
+  const path1 = getFixturePath('file.ini');
+  const path2 = getFixturePath('anotherFile.ini');
+  const expected = expectedData.nested;
   expect(genDiff(path1, path2, 'json')).toEqual(expected);
 });

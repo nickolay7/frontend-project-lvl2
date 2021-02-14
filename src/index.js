@@ -3,7 +3,6 @@ import fs from 'fs';
 import parse from './parsers.js';
 import format from './formatters/index.js';
 
-const isObject = (el) => typeof el === 'object' && !Array.isArray(el);
 const cond = (a, b) => {
   if (a.key > b.key) {
     return 1;
@@ -19,7 +18,7 @@ export default (filepath1, filepath2, formatName = 'stylish') => {
     return allKeys.flatMap((key) => {
       const val1 = data1[key];
       const val2 = data2[key];
-      if (isObject(data1[key]) && isObject(data2[key])) {
+      if (_.isPlainObject(data1[key]) && _.isPlainObject(data2[key])) {
         return {
           type: 'unchanged', key, children: getDiffFiles(val1, val2),
         };

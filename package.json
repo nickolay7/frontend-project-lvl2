@@ -31,7 +31,7 @@
     "jest-cli": "^26.6.3"
   },
   "bin": {
-    "gendiff": "src/bin/gendiff.js"
+    "gendiff": "bin/gendiff.js"
   },
   "dependencies": {
     "commander": "^6.2.1",

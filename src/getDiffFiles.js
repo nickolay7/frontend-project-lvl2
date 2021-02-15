@@ -17,7 +17,7 @@ const getDiffFiles = (data1, data2) => {
     }
     if (_.isPlainObject(val1) && _.isPlainObject(val2)) {
       return {
-        type: 'unchanged', key, children: getDiffFiles(val1, val2),
+        type: 'nested', key, children: getDiffFiles(val1, val2),
       };
     }
     return [{ type: 'update', key, value: val1 }, { type: 'updated', key, value: val2 }];

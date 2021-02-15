@@ -20,10 +20,10 @@ const plain = (data, path = '') => {
     if (type === 'updated') {
       return null;
     }
-    if (type === 'add') {
+    if (type === 'added') {
       return `Property '${path}${key}' was added with value: ${currentValue(value)}`;
     }
-    if (type === 'remove') {
+    if (type === 'removed') {
       return `Property '${path}${key}' was removed`;
     }
     return plain(children, `${path}${key}.`);

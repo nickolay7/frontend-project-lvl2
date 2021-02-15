@@ -26,6 +26,8 @@ const defaultFormatter = (data) => {
           return template('+');
         case 'unchanged':
           return template(' ');
+        case 'nested':
+          return template(' ');
         default:
           return new Error(type);
       }

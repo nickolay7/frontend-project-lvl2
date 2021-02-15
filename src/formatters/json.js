@@ -7,7 +7,7 @@ const json = (data) => {
     : data.reduce((acc, {
       type, key, value, children,
     }) => {
-      if (type === 'remove' || (type === 'unchanged' && typeof value !== 'object' && value !== undefined)) {
+      if (type === 'removed' || (type === 'unchanged' && typeof value !== 'object' && value !== undefined)) {
         return acc;
       }
       if (value === undefined) {

@@ -3,7 +3,7 @@ import _ from 'lodash';
 const getDiffFiles = (data1, data2) => {
   const allKeys = _.union(Object.keys(data1), Object.keys(data2));
   const sortedKeys = _.sortBy(allKeys);
-  return sortedKeys.flatMap((key) => {
+  return sortedKeys.map((key) => {
     if (!_.has(data1, key)) {
       return { type: 'added', key, value: data2[key] };
     }
@@ -20,7 +20,7 @@ const getDiffFiles = (data1, data2) => {
         type: 'nested', key, children: getDiffFiles(val1, val2),
       };
     }
-    return [{ type: 'update', key, value: val1 }, { type: 'updated', key, value: val2 }];
+    return { type: 'updated', key, value: { valueBefore: val1, valueAfter: val2 } };
   });
 };
 

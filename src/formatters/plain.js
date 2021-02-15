@@ -13,12 +13,9 @@ const plain = (data, path = '') => {
   };
   return data.map(({
     type, key, value, children,
-  }, index, arr) => {
-    if (type === 'update') {
-      return `Property '${path}${key}' was updated. From ${currentValue(value)} to ${currentValue(arr[index + 1].value)}`;
-    }
+  }) => {
     if (type === 'updated') {
-      return null;
+      return `Property '${path}${key}' was updated. From ${currentValue(value.valueBefore)} to ${currentValue(value.valueAfter)}`;
     }
     if (type === 'added') {
       return `Property '${path}${key}' was added with value: ${currentValue(value)}`;

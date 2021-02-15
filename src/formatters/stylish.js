@@ -12,7 +12,7 @@ const defaultFormatter = (data) => {
       type, key, value, children,
     }) => {
       const item = value === undefined ? children : value;
-      const template = (sign) => (value === ''
+      const template = (sign) => (item === ''
         ? `${currentIndent}${sign} ${key}:`
         : `${currentIndent}${sign} ${key}: ${iter(item, depth + spacesCount)}`);
       switch (type) {
@@ -20,10 +20,9 @@ const defaultFormatter = (data) => {
           return template('+');
         case 'removed':
           return template('-');
-        case 'update':
-          return template('-');
         case 'updated':
-          return template('+');
+          return [`${currentIndent}- ${key}: ${iter(item.valueBefore, depth + spacesCount)}`,
+            `${currentIndent}+ ${key}: ${iter(item.valueAfter, depth + spacesCount)}`];
         case 'unchanged':
           return template(' ');
         case 'nested':
@@ -34,7 +33,7 @@ const defaultFormatter = (data) => {
     };
     const lines = !Array.isArray(node)
       ? Object.entries(node).map(([key, value]) => ` ${currentIndent} ${key}: ${iter(value, depth + spacesCount)}`)
-      : node.map(build);
+      : node.flatMap(build);
     return [
       '{',
       ...lines,

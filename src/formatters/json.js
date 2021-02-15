@@ -13,7 +13,8 @@ const json = (data) => {
       if (value === undefined) {
         return { ...acc, [key]: json(children) };
       }
-      return { ...acc, [key]: json(value) };
+      const currentValue = type === 'updated' ? value.valueAfter : value;
+      return { ...acc, [key]: json(currentValue) };
     }, {});
 };
 

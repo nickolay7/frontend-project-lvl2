@@ -5,10 +5,10 @@ const getDiffFiles = (data1, data2) => {
   const sortedKeys = _.sortBy(allKeys);
   return sortedKeys.flatMap((key) => {
     if (!_.has(data1, key)) {
-      return { type: 'add', key, value: data2[key] };
+      return { type: 'added', key, value: data2[key] };
     }
     if (!_.has(data2, key)) {
-      return { type: 'remove', key, value: data1[key] };
+      return { type: 'removed', key, value: data1[key] };
     }
     const val1 = data1[key];
     const val2 = data2[key];

@@ -16,9 +16,9 @@ const defaultFormatter = (data) => {
         ? `${currentIndent}${sign} ${key}:`
         : `${currentIndent}${sign} ${key}: ${iter(item, depth + spacesCount)}`);
       switch (type) {
-        case 'add':
+        case 'added':
           return template('+');
-        case 'remove':
+        case 'removed':
           return template('-');
         case 'update':
           return template('-');

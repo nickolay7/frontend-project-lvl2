@@ -3,13 +3,13 @@ const plain = (data, path = '') => {
     return null;
   }
   const currentValue = (item) => {
-    if (typeof item === 'boolean' || item === null) {
-      return item;
+    if (typeof item === 'string') {
+      return `'${item}'`;
     }
-    if (typeof item === 'object') {
+    if (typeof item === 'object' && item !== null) {
       return '[complex value]';
     }
-    return `'${item}'`;
+    return item;
   };
   return data.map(({
     type, key, value, children,

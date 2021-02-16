@@ -2,16 +2,17 @@ import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 import genDiff from '../src/index.js';
-import parse from '../src/parsers.js';
+import parse from '../src/parser.js';
 
 const expectedData = { nested: '', plain: '', json: '' };
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
+const getExtension = (fp) => path.extname(fp).slice(1);
 
 beforeAll(() => {
   expectedData.plain = fs.readFileSync(getFixturePath('plain.txt'), 'utf-8');
   expectedData.nested = fs.readFileSync(getFixturePath('nested.txt'), 'utf-8');
-  expectedData.json = parse(getFixturePath('diff.json'), fs.readFileSync(getFixturePath('diff.json'), 'utf-8'));
+  expectedData.json = parse(getExtension(getFixturePath('diff.json')), fs.readFileSync(getFixturePath('diff.json'), 'utf-8'));
 });
 
 test('genDiff.json nested', () => {

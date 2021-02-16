@@ -9,5 +9,8 @@ export default (data, formatName) => {
   if (formatName === 'plain') {
     return plain(data);
   }
-  return json(data);
+  if (formatName === 'json') {
+    return json(data);
+  }
+  return Error(`Wrong format ${formatName}`);
 };

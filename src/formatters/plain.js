@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const currentValue = (item) => {
+const getCurrentValue = (item) => {
   if (_.isString(item)) {
     return `'${item}'`;
   }
@@ -19,10 +19,10 @@ const plain = (data) => {
       type, key, value, children,
     }) => {
       if (type === 'updated') {
-        return `Property '${path}${key}' was updated. From ${currentValue(value.valueBefore)} to ${currentValue(value.valueAfter)}`;
+        return `Property '${path}${key}' was updated. From ${getCurrentValue(value.valueBefore)} to ${getCurrentValue(value.valueAfter)}`;
       }
       if (type === 'added') {
-        return `Property '${path}${key}' was added with value: ${currentValue(value)}`;
+        return `Property '${path}${key}' was added with value: ${getCurrentValue(value)}`;
       }
       if (type === 'removed') {
         return `Property '${path}${key}' was removed`;

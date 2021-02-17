@@ -1,16 +1,17 @@
+const currentValue = (item) => {
+  if (typeof item === 'string') {
+    return `'${item}'`;
+  }
+  if (typeof item === 'object' && item !== null) {
+    return '[complex value]';
+  }
+  return item;
+};
+
 const plain = (data, path = '') => {
   if (typeof data !== 'object') {
     return null;
   }
-  const currentValue = (item) => {
-    if (typeof item === 'string') {
-      return `'${item}'`;
-    }
-    if (typeof item === 'object' && item !== null) {
-      return '[complex value]';
-    }
-    return item;
-  };
   return data.map(({
     type, key, value, children,
   }) => {

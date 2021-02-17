@@ -3,7 +3,7 @@ import fs from 'fs';
 import { fileURLToPath } from 'url';
 import genDiff from '../src/index.js';
 
-const expectedData = { nested: '', plain: '', json: '' };
+const expectedData = {};
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 const getPath = (fileName) => getFixturePath(fileName);

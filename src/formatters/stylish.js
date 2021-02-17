@@ -1,38 +1,40 @@
-const defaultFormatter = (data) => {
+import _ from 'lodash';
+
+const getIndents = (depth) => {
+  const replacer = ' ';
+  const spacesCount = 2;
+  const indentSize = depth * spacesCount;
+  const currentIndent = replacer.repeat(indentSize);
+  const bracketIndent = replacer.repeat(indentSize - spacesCount);
+  return [spacesCount, currentIndent, bracketIndent];
+};
+const stylish = (data) => {
   const iter = (node, depth) => {
-    if ((!Array.isArray(node) && typeof node !== 'object') || node === null) {
+    if (!_.isObject(node)) {
       return node;
     }
-    const replacer = ' ';
-    const spacesCount = 2;
-    const indentSize = depth * spacesCount;
-    const currentIndent = replacer.repeat(indentSize);
-    const bracketIndent = replacer.repeat(indentSize - spacesCount);
+    const [spacesCount, currentIndent, bracketIndent] = getIndents(depth);
     const build = ({
       type, key, value, children,
     }) => {
-      const item = value === undefined ? children : value;
-      const template = (sign) => (item === ''
-        ? `${currentIndent}${sign} ${key}:`
-        : `${currentIndent}${sign} ${key}: ${iter(item, depth + spacesCount)}`);
       switch (type) {
         case 'added':
-          return template('+');
+          return `${currentIndent}+ ${key}: ${iter(value, depth + spacesCount)}`;
         case 'removed':
-          return template('-');
+          return `${currentIndent}- ${key}: ${iter(value, depth + spacesCount)}`;
         case 'updated':
-          return [`${currentIndent}- ${key}: ${iter(item.valueBefore, depth + spacesCount)}`,
-            `${currentIndent}+ ${key}: ${iter(item.valueAfter, depth + spacesCount)}`];
+          return [`${currentIndent}- ${key}: ${iter(value.valueBefore, depth + spacesCount)}`,
+            `${currentIndent}+ ${key}: ${iter(value.valueAfter, depth + spacesCount)}`];
         case 'unchanged':
-          return template(' ');
+          return `${currentIndent}  ${key}: ${iter(value, depth + spacesCount)}`;
         case 'nested':
-          return template(' ');
+          return `${currentIndent}  ${key}: ${iter(children, depth + spacesCount)}`;
         default:
           return new Error(type);
       }
     };
     const lines = !Array.isArray(node)
-      ? Object.entries(node).map(([key, value]) => ` ${currentIndent} ${key}: ${iter(value, depth + spacesCount)}`)
+      ? _.entries(node).map(([key, value]) => ` ${currentIndent} ${key}: ${iter(value, depth + spacesCount)}`)
       : node.flatMap(build);
     return [
       '{',
@@ -44,4 +46,4 @@ const defaultFormatter = (data) => {
   return iter(data, 1);
 };
 
-export default defaultFormatter;
+export default stylish;

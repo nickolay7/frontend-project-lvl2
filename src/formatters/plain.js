@@ -1,8 +1,10 @@
+import _ from 'lodash';
+
 const currentValue = (item) => {
-  if (typeof item === 'string') {
+  if (_.isString(item)) {
     return `'${item}'`;
   }
-  if (typeof item === 'object' && item !== null) {
+  if (_.isObject(item)) {
     return '[complex value]';
   }
   return item;
@@ -10,7 +12,7 @@ const currentValue = (item) => {
 
 const plain = (data) => {
   const mapping = (items, path = '') => {
-    if (typeof items !== 'object') {
+    if (!_.isObject(items)) {
       return null;
     }
     return items.map(({

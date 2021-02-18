@@ -13,28 +13,28 @@ const stylish = (data) => {
     if (!_.isObject(node)) {
       return node;
     }
-    const [spacesCount, currentIndent, bracketIndent] = getIndents(depth);
+    const [, currentIndent, bracketIndent] = getIndents(depth);
     const build = ({
       type, key, value, children,
     }) => {
       switch (type) {
         case 'added':
-          return `${currentIndent}+ ${key}: ${iter(value, depth + spacesCount)}`;
+          return `${currentIndent}+ ${key}: ${iter(value, depth + 1)}`;
         case 'removed':
-          return `${currentIndent}- ${key}: ${iter(value, depth + spacesCount)}`;
+          return `${currentIndent}- ${key}: ${iter(value, depth + 1)}`;
         case 'updated':
-          return [`${currentIndent}- ${key}: ${iter(value.valueBefore, depth + spacesCount)}`,
-            `${currentIndent}+ ${key}: ${iter(value.valueAfter, depth + spacesCount)}`];
+          return [`${currentIndent}- ${key}: ${iter(value.valueBefore, depth + 1)}`,
+            `${currentIndent}+ ${key}: ${iter(value.valueAfter, depth + 1)}`];
         case 'unchanged':
-          return `${currentIndent}  ${key}: ${iter(value, depth + spacesCount)}`;
+          return `${currentIndent}  ${key}: ${iter(value, depth + 1)}`;
         case 'nested':
-          return `${currentIndent}  ${key}: ${iter(children, depth + spacesCount)}`;
+          return `${currentIndent}  ${key}: ${iter(children, depth + 1)}`;
         default:
           return new Error(type);
       }
     };
     const lines = !Array.isArray(node)
-      ? _.entries(node).map(([key, value]) => ` ${currentIndent} ${key}: ${iter(value, depth + spacesCount)}`)
+      ? _.entries(node).map(([key, value]) => ` ${currentIndent} ${key}: ${iter(value, depth + 1)}`)
       : node.flatMap(build);
     return [
       '{',

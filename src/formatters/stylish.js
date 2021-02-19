@@ -9,12 +9,17 @@ const getIndents = (depth) => {
   const bracketIndent = replacer.repeat(indentSize - indentForSign);
   return [currentIndent, bracketIndent];
 };
+const objectToString = (obj, depth, fn) => {
+  const [currentIndent] = getIndents(depth);
+  return _.keys(obj).map((key) => ` ${currentIndent} ${key}: ${fn(obj[key], depth + 1)}`);
+};
 const stylish = (data) => {
   const iter = (tree, depth) => {
+    const [currentIndent, bracketIndent] = getIndents(depth);
     if (!_.isObject(tree)) {
       return tree;
     }
-    const [currentIndent, bracketIndent] = getIndents(depth);
+
     const build = (node) => {
       switch (node.type) {
         case 'added':
@@ -32,9 +37,7 @@ const stylish = (data) => {
           return new Error(node.type);
       }
     };
-    const lines = !Array.isArray(tree)
-      ? _.keys(tree).map((key) => ` ${currentIndent} ${key}: ${iter(tree[key], depth + 1)}`)
-      : tree.flatMap(build);
+    const lines = Array.isArray(tree) ? tree.flatMap(build) : objectToString(tree, depth, iter);
     return [
       '{',
       ...lines,

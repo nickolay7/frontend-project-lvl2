@@ -4,40 +4,37 @@ const getIndents = (depth) => {
   const replacer = ' ';
   const spacesCount = 4;
   const indentForSign = 2;
-  const depthStep = 1;
   const indentSize = depth * spacesCount - indentForSign;
   const currentIndent = replacer.repeat(indentSize);
   const bracketIndent = replacer.repeat(indentSize - indentForSign);
-  return [depthStep, currentIndent, bracketIndent];
+  return [currentIndent, bracketIndent];
 };
 const stylish = (data) => {
-  const iter = (node, depth) => {
-    if (!_.isObject(node)) {
-      return node;
+  const iter = (tree, depth) => {
+    if (!_.isObject(tree)) {
+      return tree;
     }
-    const [depthStep, currentIndent, bracketIndent] = getIndents(depth);
-    const build = ({
-      type, key, value, children,
-    }) => {
-      switch (type) {
+    const [currentIndent, bracketIndent] = getIndents(depth);
+    const build = (node) => {
+      switch (node.type) {
         case 'added':
-          return `${currentIndent}+ ${key}: ${iter(value, depth + depthStep)}`;
+          return `${currentIndent}+ ${node.key}: ${iter(node.value, depth + 1)}`;
         case 'removed':
-          return `${currentIndent}- ${key}: ${iter(value, depth + depthStep)}`;
+          return `${currentIndent}- ${node.key}: ${iter(node.value, depth + 1)}`;
         case 'updated':
-          return [`${currentIndent}- ${key}: ${iter(value.valueBefore, depth + depthStep)}`,
-            `${currentIndent}+ ${key}: ${iter(value.valueAfter, depth + depthStep)}`];
+          return [`${currentIndent}- ${node.key}: ${iter(node.value.valueBefore, depth + 1)}`,
+            `${currentIndent}+ ${node.key}: ${iter(node.value.valueAfter, depth + 1)}`];
         case 'unchanged':
-          return `${currentIndent}  ${key}: ${iter(value, depth + depthStep)}`;
+          return `${currentIndent}  ${node.key}: ${iter(node.value, depth + 1)}`;
         case 'nested':
-          return `${currentIndent}  ${key}: ${iter(children, depth + depthStep)}`;
+          return `${currentIndent}  ${node.key}: ${iter(node.children, depth + 1)}`;
         default:
-          return new Error(type);
+          return new Error(node.type);
       }
     };
-    const lines = !Array.isArray(node)
-      ? _.entries(node).map(([key, value]) => ` ${currentIndent} ${key}: ${iter(value, depth + depthStep)}`)
-      : node.flatMap(build);
+    const lines = !Array.isArray(tree)
+      ? _.keys(tree).map((key) => ` ${currentIndent} ${key}: ${iter(tree[key], depth + 1)}`)
+      : tree.flatMap(build);
     return [
       '{',
       ...lines,

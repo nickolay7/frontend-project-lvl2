@@ -12,7 +12,7 @@ const getDiffFiles = (data1, data2) => {
     }
     const val1 = data1[key];
     const val2 = data2[key];
-    if (val1 === val2) {
+    if (_.isEqual(val1, val2)) {
       return { type: 'unchanged', key, value: val1 };
     }
     if (_.isPlainObject(val1) && _.isPlainObject(val2)) {

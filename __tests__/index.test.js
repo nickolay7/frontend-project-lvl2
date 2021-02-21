@@ -12,7 +12,7 @@ const expectedJson = fs.readFileSync(getFixturePath('json.txt'), 'utf-8');
 
 const cases = [
   ['json', 'stylish', getPath('fileBefore.json'), getPath('fileAfter.json'), expectedNested],
-  ['yaml', 'stylish',getPath('fileBefore.yaml'), getPath('fileAfter.yaml'), expectedNested],
+  ['yaml', 'stylish', getPath('fileBefore.yaml'), getPath('fileAfter.yaml'), expectedNested],
   ['ini', 'stylish', getPath('fileBefore.ini'), getPath('fileAfter.ini'), expectedNested],
   ['json', 'plain', getPath('fileBefore.json'), getPath('fileAfter.json'), expectedPlain],
   ['yaml', 'plain', getPath('fileBefore.yaml'), getPath('fileAfter.yaml'), expectedPlain],

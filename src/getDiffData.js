@@ -20,7 +20,9 @@ const getDiffData = (data1, data2) => {
         type: 'nested', key, children: getDiffData(val1, val2),
       };
     }
-    return { type: 'updated', key, valueBefore: val1, valueAfter: val2 };
+    return {
+      type: 'updated', key, valueBefore: val1, valueAfter: val2,
+    };
   });
 };
 

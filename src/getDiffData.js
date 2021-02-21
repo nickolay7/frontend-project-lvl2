@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const getDiffFiles = (data1, data2) => {
+const getDiffData = (data1, data2) => {
   const allKeys = _.union(Object.keys(data1), Object.keys(data2));
   const sortedKeys = _.sortBy(allKeys);
   return sortedKeys.map((key) => {
@@ -17,11 +17,11 @@ const getDiffFiles = (data1, data2) => {
     }
     if (_.isPlainObject(val1) && _.isPlainObject(val2)) {
       return {
-        type: 'nested', key, children: getDiffFiles(val1, val2),
+        type: 'nested', key, children: getDiffData(val1, val2),
       };
     }
     return { type: 'updated', key, valueBefore: val1, valueAfter: val2 };
   });
 };
 
-export default getDiffFiles;
+export default getDiffData;

@@ -6,34 +6,40 @@ const getIndent = (depth, indentForSign = 0) => {
   const indentSize = depth * spacesCount - indentForSign;
   return replacer.repeat(indentSize);
 };
-const objectToString = (obj, depth, fn) => _.keys(obj)
-  .map((key) => ` ${getIndent(depth, 2)} ${key}: ${fn(obj[key], depth + 1)}`);
+const valueHandler = (data, depth) => {
+  if (!_.isObject(data)) {
+    return data;
+  }
+  const lines = _.keys(data)
+    .map((key) => `${getIndent(depth, -3)} ${key}: ${valueHandler(data[key], depth + 1)}`);
+  return [
+    '{',
+    ...lines,
+    `${getIndent(depth)}}`,
+  ].join('\n');
+};
 const stylish = (data) => {
   const iter = (tree, depth) => {
     const currentIndent = getIndent(depth, 2);
     const bracketIndent = getIndent(depth, 4);
-    if (!_.isObject(tree)) {
-      return tree;
-    }
-
     const build = (node) => {
       switch (node.type) {
         case 'added':
-          return `${currentIndent}+ ${node.key}: ${iter(node.value, depth + 1)}`;
+          return `${currentIndent}+ ${node.key}: ${valueHandler(node.value, depth)}`;
         case 'removed':
-          return `${currentIndent}- ${node.key}: ${iter(node.value, depth + 1)}`;
+          return `${currentIndent}- ${node.key}: ${valueHandler(node.value, depth)}`;
         case 'updated':
-          return [`${currentIndent}- ${node.key}: ${iter(node.valueBefore, depth + 1)}`,
-            `${currentIndent}+ ${node.key}: ${iter(node.valueAfter, depth + 1)}`];
+          return [`${currentIndent}- ${node.key}: ${valueHandler(node.valueBefore, depth)}`,
+            `${currentIndent}+ ${node.key}: ${valueHandler(node.valueAfter, depth)}`];
         case 'unchanged':
-          return `${currentIndent}  ${node.key}: ${iter(node.value, depth + 1)}`;
+          return `${currentIndent}  ${node.key}: ${valueHandler(node.value, depth)}`;
         case 'nested':
           return `${currentIndent}  ${node.key}: ${iter(node.children, depth + 1)}`;
         default:
           return new Error(node.type);
       }
     };
-    const lines = Array.isArray(tree) ? tree.flatMap(build) : objectToString(tree, depth, iter);
+    const lines = tree.flatMap(build);
     return [
       '{',
       ...lines,

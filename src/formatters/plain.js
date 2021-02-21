@@ -12,9 +12,6 @@ const getCurrentValue = (item) => {
 
 const plain = (data) => {
   const mapping = (items, path = '') => {
-    if (!_.isObject(items)) {
-      return null;
-    }
     return items.map((node) => {
       switch (node.type) {
         case 'updated':

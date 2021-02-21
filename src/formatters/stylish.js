@@ -1,21 +1,17 @@
 import _ from 'lodash';
 
-const getIndents = (depth) => {
+const getIndent = (depth, indentForSign = 0) => {
   const replacer = ' ';
   const spacesCount = 4;
-  const indentForSign = 2;
   const indentSize = depth * spacesCount - indentForSign;
-  const currentIndent = replacer.repeat(indentSize);
-  const bracketIndent = replacer.repeat(indentSize - indentForSign);
-  return [currentIndent, bracketIndent];
+  return replacer.repeat(indentSize);
 };
-const objectToString = (obj, depth, fn) => {
-  const [currentIndent] = getIndents(depth);
-  return _.keys(obj).map((key) => ` ${currentIndent} ${key}: ${fn(obj[key], depth + 1)}`);
-};
+const objectToString = (obj, depth, fn) => _.keys(obj)
+  .map((key) => ` ${getIndent(depth, 2)} ${key}: ${fn(obj[key], depth + 1)}`);
 const stylish = (data) => {
   const iter = (tree, depth) => {
-    const [currentIndent, bracketIndent] = getIndents(depth);
+    const currentIndent = getIndent(depth, 2);
+    const bracketIndent = getIndent(depth, 4);
     if (!_.isObject(tree)) {
       return tree;
     }

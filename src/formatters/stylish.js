@@ -12,11 +12,7 @@ const valueHandler = (data, depth) => {
   }
   const lines = _.keys(data)
     .map((key) => `${getIndent(depth, -3)} ${key}: ${valueHandler(data[key], depth + 1)}`);
-  return [
-    '{',
-    ...lines,
-    `${getIndent(depth)}}`,
-  ].join('\n');
+  return ['{', ...lines, `${getIndent(depth)}}`].join('\n');
 };
 const stylish = (data) => {
   const iter = (tree, depth) => {
@@ -40,13 +36,8 @@ const stylish = (data) => {
       }
     };
     const lines = tree.flatMap(build);
-    return [
-      '{',
-      ...lines,
-      `${bracketIndent}}`,
-    ].join('\n');
+    return ['{', ...lines, `${bracketIndent}}`].join('\n');
   };
-
   return iter(data, 1);
 };
 

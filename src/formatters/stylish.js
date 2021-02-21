@@ -27,8 +27,8 @@ const stylish = (data) => {
         case 'removed':
           return `${currentIndent}- ${node.key}: ${iter(node.value, depth + 1)}`;
         case 'updated':
-          return [`${currentIndent}- ${node.key}: ${iter(node.value.valueBefore, depth + 1)}`,
-            `${currentIndent}+ ${node.key}: ${iter(node.value.valueAfter, depth + 1)}`];
+          return [`${currentIndent}- ${node.key}: ${iter(node.valueBefore, depth + 1)}`,
+            `${currentIndent}+ ${node.key}: ${iter(node.valueAfter, depth + 1)}`];
         case 'unchanged':
           return `${currentIndent}  ${node.key}: ${iter(node.value, depth + 1)}`;
         case 'nested':

@@ -15,22 +15,20 @@ const plain = (data) => {
     if (!_.isObject(items)) {
       return null;
     }
-    return items.map(({
-      type, key, value, children,
-    }) => {
-      switch (type) {
+    return items.map((node) => {
+      switch (node.type) {
         case 'updated':
-          return `Property '${path}${key}' was updated. From ${getCurrentValue(value.valueBefore)} to ${getCurrentValue(value.valueAfter)}`;
+          return `Property '${path}${node.key}' was updated. From ${getCurrentValue(node.valueBefore)} to ${getCurrentValue(node.valueAfter)}`;
         case 'added':
-          return `Property '${path}${key}' was added with value: ${getCurrentValue(value)}`;
+          return `Property '${path}${node.key}' was added with value: ${getCurrentValue(node.value)}`;
         case 'removed':
-          return `Property '${path}${key}' was removed`;
+          return `Property '${path}${node.key}' was removed`;
         case 'nested':
-          return mapping(children, `${path}${key}.`);
+          return mapping(node.children, `${path}${node.key}.`);
         case 'unchanged':
           return null;
         default:
-          return new Error(type);
+          return new Error(node.type);
       }
     }).filter((el) => el).join('\n');
   };

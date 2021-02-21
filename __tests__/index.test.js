@@ -20,6 +20,6 @@ const cases = [
   ['json', 'json', getPath('fileBefore.json'), getPath('fileAfter.json'), expectedJson],
 ];
 
-test.each(cases)('genDiff files %s formatted as %s', (ext, format, path1, path2, expected) => {
+test.each(cases)('genDiff %s files, formatted as %s', (ext, format, path1, path2, expected) => {
   expect(genDiff(path1, path2, format)).toEqual(expected);
 });

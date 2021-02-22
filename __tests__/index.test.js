@@ -18,6 +18,7 @@ const cases = [
   ['yaml', 'plain', getPath('fileBefore.yaml'), getPath('fileAfter.yaml'), expectedPlain],
   ['ini', 'plain', getPath('fileBefore.ini'), getPath('fileAfter.ini'), expectedPlain],
   ['json', 'json', getPath('fileBefore.json'), getPath('fileAfter.json'), expectedJson],
+  ['yaml', 'json', getPath('fileBefore.yaml'), getPath('fileAfter.yaml'), expectedJson],
 ];
 
 test.each(cases)('genDiff %s files, formatted as %s', (ext, format, path1, path2, expected) => {

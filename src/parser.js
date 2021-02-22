@@ -1,7 +1,7 @@
 import yaml from 'js-yaml';
 import ini from 'ini';
 
-export default (format, text) => {
+export default (text, format) => {
   if (format === 'json') {
     return JSON.parse(text);
   }

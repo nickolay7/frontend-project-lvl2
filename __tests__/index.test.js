@@ -6,21 +6,22 @@ import genDiff from '../src/index.js';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 const getPath = (fileName) => getFixturePath(fileName);
+
 const expectedPlain = fs.readFileSync(getFixturePath('plain.txt'), 'utf-8');
 const expectedNested = fs.readFileSync(getFixturePath('stylish.txt'), 'utf-8');
 const expectedJson = fs.readFileSync(getFixturePath('json.txt'), 'utf-8');
 
-const cases = [
-  ['json', 'stylish', getPath('fileBefore.json'), getPath('fileAfter.json'), expectedNested],
-  ['yaml', 'stylish', getPath('fileBefore.yaml'), getPath('fileAfter.yaml'), expectedNested],
-  ['ini', 'stylish', getPath('fileBefore.ini'), getPath('fileAfter.ini'), expectedNested],
-  ['json', 'plain', getPath('fileBefore.json'), getPath('fileAfter.json'), expectedPlain],
-  ['yaml', 'plain', getPath('fileBefore.yaml'), getPath('fileAfter.yaml'), expectedPlain],
-  ['ini', 'plain', getPath('fileBefore.ini'), getPath('fileAfter.ini'), expectedPlain],
-  ['json', 'json', getPath('fileBefore.json'), getPath('fileAfter.json'), expectedJson],
-  ['yaml', 'json', getPath('fileBefore.yaml'), getPath('fileAfter.yaml'), expectedJson],
-];
+test.each(['json', 'yaml'])('genDiff %s files', (ext) => {
+  const path1 = getPath(`fileBefore.${ext}`);
+  const path2 = getPath(`fileAfter.${ext}`);
+  expect(genDiff(path1, path2, 'stylish')).toEqual(expectedNested);
+  expect(genDiff(path1, path2, 'plain')).toEqual(expectedPlain);
+  expect(genDiff(path1, path2, 'json')).toEqual(expectedJson);
+});
 
-test.each(cases)('genDiff %s files, formatted as %s', (ext, format, path1, path2, expected) => {
-  expect(genDiff(path1, path2, format)).toEqual(expected);
+test('genDiff ini files', () => {
+  const path1 = getPath('fileBefore.ini');
+  const path2 = getPath('fileAfter.ini');
+  expect(genDiff(path1, path2, 'stylish')).toEqual(expectedNested);
+  expect(genDiff(path1, path2, 'plain')).toEqual(expectedPlain);
 });

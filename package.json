@@ -1,7 +1,7 @@
 {
   "name": "@hexlet/code",
   "version": "0.0.1",
-  "description": "![Actions Status](/workflows/hexlet-check/badge.svg)",
+  "description": "CLI utility",
   "main": "src/index.js",
   "scripts": {
     "test": "npx jest"

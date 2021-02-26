@@ -11,5 +11,5 @@ export default (text, format) => {
   if (format === 'ini') {
     return ini.parse(text);
   }
-  return new Error(`Unsupported format ${format}!`);
+  throw new Error(`Unsupported file format: ${format}!`);
 };

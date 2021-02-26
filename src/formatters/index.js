@@ -12,5 +12,5 @@ export default (data, formatName) => {
   if (formatName === 'json') {
     return json(data);
   }
-  return Error(`Wrong format ${formatName}`);
+  throw new Error(`Wrong format name: "${formatName}", please look doc...`);
 };

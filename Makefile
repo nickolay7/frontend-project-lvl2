@@ -1,11 +1,5 @@
 install:
-	npm install --save-dev
-
-run:
-	./gendiff.js
-
-install-deps:
-	npm ci
+	npm install
 
 test:
 	npm test
